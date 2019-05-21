@@ -1,19 +1,25 @@
 import React from 'react';
+import styled from 'styled-components';
 import Header from './Header/Header';
 import Nav from './Nav/Nav';
 import Footer from './Footer/Footer';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 import addIconsToLib from './icons';
 
 addIconsToLib();
 
+const AppWrapper = styled.div`
+  background-color: #fd6365;
+`;
+
 const App = () => {
   return (
-    <React.Fragment>
+    <AppWrapper>
       <Header />
+      <ProfileInfo />
       <Nav />
       <Footer />
-    </React.Fragment>
+    </AppWrapper>
   );
 };
 

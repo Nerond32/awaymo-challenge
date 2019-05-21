@@ -1,9 +1,11 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = () => {
   return (
     <header>
-      <h1>awaymo</h1>
+      <img src="./awaymoFullWhite.svg" alt="Awaymo  avatar" />
+      <FontAwesomeIcon icon="times" />
     </header>
   );
 };
