@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const HeaderWrapper = styled.header`
   align-items: center;
   justify-items: center;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #f18990;
   height: 3.5em;
   margin: 0 1em 0.5em 1em;
   display: flex;
@@ -18,6 +18,9 @@ const HeaderWrapper = styled.header`
   .header-exit-button {
     justify-self: flex-end;
     order: 10;
+  }
+  @media screen and (min-width: 480px) {
+    border-bottom: 2px solid white;
   }
 `;
 
