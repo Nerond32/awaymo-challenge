@@ -22,7 +22,11 @@ const NavWrapper = styled.nav`
     flex-wrap: wrap;
     font-size: 1.2em;
     font-weight: bold;
+    height: 300px;
     max-height: 300px;
+    & > div {
+      align-self: stretch;
+    }
     div:nth-child(${getMobileOrder('Contact')}) {
       flex-basis: auto;
       height: calc(300px - 6 * 24px);

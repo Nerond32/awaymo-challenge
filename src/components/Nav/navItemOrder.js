@@ -30,6 +30,6 @@ const mobileMenu = [
 ];
 
 export const getDesktopOrder = itemName =>
-  desktopMenu.findIndex(value => value === itemName);
+  desktopMenu.indexOf(desktopMenu.filter(value => value === itemName)[0]);
 export const getMobileOrder = itemName =>
-  mobileMenu.findIndex(value => value === itemName);
+  mobileMenu.indexOf(desktopMenu.filter(value => value === itemName)[0]);

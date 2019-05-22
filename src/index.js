@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css';
+import 'core-js/features/object';
+import 'core-js/features/string';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
