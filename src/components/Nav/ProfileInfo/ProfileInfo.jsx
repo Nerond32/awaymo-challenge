@@ -11,6 +11,10 @@ const ProfileInfoWrapper = styled.div`
     padding: 0.4em;
     height: 2em;
     width: 2em;
+    transition: transform 0.5s ease;
+  }
+  .profile-picture:hover {
+    transform: rotate(360deg);
   }
   @media screen and (max-width: 479px) {
     line-height: 1.4em;
