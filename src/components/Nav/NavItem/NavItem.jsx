@@ -11,6 +11,7 @@ const NavItemWrapper = styled.div`
   }
   @media screen and (max-width: 479px) {
     display: ${props => (props.isDesktopExclusive ? 'none' : 'initial')};
+    font-size: 1.4em;
   }
   @media screen and (min-width: 480px) {
     order: ${props => getDesktopOrder(props.name)};
@@ -23,7 +24,7 @@ const NavItemWrapper = styled.div`
 const NavItem = ({ name, nameAppend, icon, rotation, isDesktopExclusive }) => {
   return (
     <NavItemWrapper name={name} isDesktopExclusive={isDesktopExclusive}>
-      {icon !== undefined && (
+      {icon !== null && (
         <FontAwesomeIcon
           className="mobile-only"
           icon={icon}
@@ -32,7 +33,7 @@ const NavItem = ({ name, nameAppend, icon, rotation, isDesktopExclusive }) => {
       )}
       <p className="item-name">
         {name}
-        {nameAppend !== undefined && (
+        {nameAppend !== null && (
           <span className="mobile-only"> {nameAppend}</span>
         )}
       </p>
@@ -41,9 +42,9 @@ const NavItem = ({ name, nameAppend, icon, rotation, isDesktopExclusive }) => {
 };
 
 NavItem.defaultProps = {
-  icon: undefined,
+  icon: null,
   isDesktopExclusive: false,
-  nameAppend: undefined,
+  nameAppend: null,
   rotation: 0
 };
 

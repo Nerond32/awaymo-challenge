@@ -7,7 +7,7 @@ const NavWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 479px) {
-    & > div:not(:last-of-type) {
+    & > div:not(:first-of-type) {
       margin: 0.6em 0.8em 0 0.8em;
       padding-bottom: 0.6em;
       border-bottom: 1px solid #f18990;
@@ -16,6 +16,7 @@ const NavWrapper = styled.nav`
   @media screen and (min-width: 480px) {
     align-content: flex-start;
     flex-wrap: wrap;
+    font-size: 1.2em;
     font-weight: bold;
     max-height: 300px;
     div:nth-child(6) {

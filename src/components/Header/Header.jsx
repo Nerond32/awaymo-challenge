@@ -6,7 +6,7 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-items: center;
   border-bottom: 1px solid #f18990;
-  height: 3.5em;
+  min-height: 3.5em;
   margin: 0 1em 0.5em 1em;
   display: flex;
   img {
