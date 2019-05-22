@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getDesktopOrder } from '../desktopOrder';
 
 const ProfileInfoWrapper = styled.div`
   text-align: center;
@@ -10,6 +11,9 @@ const ProfileInfoWrapper = styled.div`
     height: 2em;
     width: 2em;
   }
+  @media screen and (min-width: 480px) {
+    order: ${getDesktopOrder('ProfileInfo')};
+  }
 `;
 
 const ProfileInfo = () => {
@@ -19,7 +23,7 @@ const ProfileInfo = () => {
       <img src="/avatar.png" alt="profile" />
       <br />
       Available balance
-      <div>Â£1,500.00</div>
+      <div>£1,500.00</div>
     </ProfileInfoWrapper>
   );
 };

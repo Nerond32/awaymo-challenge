@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Header from './Header/Header';
 import Nav from './Nav/Nav';
 import Footer from './Footer/Footer';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
 import addIconsToLib from './icons';
 
 addIconsToLib();
@@ -26,7 +25,6 @@ const App = () => {
   return (
     <AppWrapper>
       <Header />
-      <ProfileInfo />
       <Nav />
       <Footer />
       <GlobalStyle />
