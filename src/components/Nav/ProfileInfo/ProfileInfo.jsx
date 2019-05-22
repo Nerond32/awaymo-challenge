@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { getDesktopOrder } from '../itemOrder';
+import { getDesktopOrder } from '../navItemOrder';
 
 const ProfileInfoWrapper = styled.div`
   text-align: center;

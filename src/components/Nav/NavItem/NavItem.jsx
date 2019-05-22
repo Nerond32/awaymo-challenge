@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getDesktopOrder, getMobileOrder } from '../itemOrder';
+import { getDesktopOrder, getMobileOrder } from '../navItemOrder';
 
 const NavItemWrapper = styled.div`
   .item-name {
