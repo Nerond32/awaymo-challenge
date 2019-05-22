@@ -14,9 +14,10 @@ const NavWrapper = styled.nav`
     }
   }
   @media screen and (min-width: 480px) {
-    max-height: 300px;
     align-content: flex-start;
     flex-wrap: wrap;
+    font-weight: bold;
+    max-height: 300px;
     div:nth-child(6) {
       flex-basis: auto;
       height: calc(300px - 6 * 24px);
@@ -27,6 +28,13 @@ const NavWrapper = styled.nav`
     }
   }
 `;
+
+const profileData = {
+  name: 'Krzysztof',
+  lastName: 'Kwiecień',
+  balance: '1,500.00',
+  imgSrc: '/avatar.png'
+};
 
 const navItems = [
   { name: 'Profile', icon: 'user-circle' },
@@ -46,7 +54,7 @@ const Nav = () => {
   const items = navItems.map((item, key) => <NavItem key={key} {...item} />);
   return (
     <NavWrapper>
-      <ProfileInfo />
+      <ProfileInfo {...profileData} />
       {items}
     </NavWrapper>
   );
