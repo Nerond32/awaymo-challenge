@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getDesktopOrder } from '../desktopOrder';
+import { getDesktopOrder, getMobileOrder } from '../itemOrder';
 
 const NavItemWrapper = styled.div`
   .item-name {
@@ -10,6 +10,7 @@ const NavItemWrapper = styled.div`
     margin-left: 0.5em;
   }
   @media screen and (max-width: 479px) {
+    order: ${props => getMobileOrder(props.name)};
     display: ${props => (props.isDesktopExclusive ? 'none' : 'initial')};
     font-size: 1.4em;
   }

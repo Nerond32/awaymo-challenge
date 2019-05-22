@@ -14,6 +14,10 @@ const desktopMenu = [
 ];
 
 const mobileMenu = [
+  'ProfileInfo',
+  'Home',
+  'Flights',
+  'About',
   'Profile',
   'My Bookings',
   'My Payments',
@@ -22,9 +26,6 @@ const mobileMenu = [
   'Log Out',
   'About',
   'FAQ',
-  'Home',
-  'Flights',
-  'ProfileInfo',
   'Resume Application'
 ];
 

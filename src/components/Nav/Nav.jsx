@@ -2,15 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import NavItem from './NavItem/NavItem';
+import { getMobileOrder } from './itemOrder';
 
 const NavWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 479px) {
-    & > div:not(:first-of-type) {
+    & > div {
       margin: 0.6em 0.8em 0 0.8em;
       padding-bottom: 0.6em;
-      border-bottom: 1px solid #f18990;
+      :not(:first-of-type):not(:last-of-type) {
+        border-bottom: 1px solid #f18990;
+      }
     }
   }
   @media screen and (min-width: 480px) {
@@ -19,12 +22,12 @@ const NavWrapper = styled.nav`
     font-size: 1.2em;
     font-weight: bold;
     max-height: 300px;
-    div:nth-child(6) {
+    div:nth-child(${getMobileOrder('Contact')}) {
       flex-basis: auto;
       height: calc(300px - 6 * 24px);
       margin-right: 100px;
     }
-    div:nth-child(11) {
+    div:nth-child(${getMobileOrder('Resume Application')}) {
       margin-bottom: 0.6em;
     }
   }
@@ -38,6 +41,8 @@ const profileData = {
 };
 
 const navItems = [
+  { name: 'Home', isDesktopExclusive: true },
+  { name: 'Flights', isDesktopExclusive: true },
   { name: 'Profile', icon: 'user-circle' },
   { name: 'My Bookings', icon: 'plane', rotation: -45 },
   { name: 'My Payments', icon: 'credit-card' },
@@ -46,8 +51,6 @@ const navItems = [
   { name: 'Log Out', icon: 'sign-out-alt' },
   { name: 'About', icon: 'question-circle', nameAppend: 'Us' },
   { name: 'FAQ', icon: 'info-circle' },
-  { name: 'Home', isDesktopExclusive: true },
-  { name: 'Flights', isDesktopExclusive: true },
   { name: 'Resume Application', isDesktopExclusive: true }
 ];
 

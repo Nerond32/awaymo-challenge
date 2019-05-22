@@ -11,8 +11,8 @@ const HeaderWrapper = styled.header`
   display: flex;
   img {
     flex: 1;
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.6em;
+    height: 1.6em;
     order: 5;
   }
   .header-exit-button {
