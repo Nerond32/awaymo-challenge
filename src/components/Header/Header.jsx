@@ -18,6 +18,10 @@ const HeaderWrapper = styled.header`
   .header-exit-button {
     justify-self: flex-end;
     order: 10;
+    transition: all 500ms;
+  }
+  .header-exit-button:hover {
+    font-size: 2em;
   }
   @media screen and (min-width: 480px) {
     border-bottom: 2px solid white;

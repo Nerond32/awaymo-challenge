@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 import { getDesktopOrder } from '../navItemOrder';
 
 const ProfileInfoWrapper = styled.div`
   text-align: center;
+  &.profileinfo-enter {
+    opacity: 0;
+  }
+  &.profileinfo-enter-active {
+    opacity: 1;
+    transition: all 1000ms;
+  }
   .profile-picture {
     background-color: white;
     border-radius: 100%;
@@ -48,27 +56,43 @@ const ProfileInfoWrapper = styled.div`
   }
 `;
 
-const ProfileInfo = ({ name, lastName, imgSrc, balance }) => {
-  return (
-    <ProfileInfoWrapper>
-      <img className="profile-picture" src={imgSrc} alt="profile" />
-      <div className="profile-details">
-        <span className="profile-details-name">
-          {name}
-          <span className="desktop"> {lastName}</span>
-        </span>
-        <span className="mobile">
-          <br />
-          Available balance
-          <div>£{balance}</div>
-        </span>
-        <span className="desktop">
-          <br />£{balance} Available
-        </span>
-      </div>
-    </ProfileInfoWrapper>
-  );
-};
+class ProfileInfo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMounted: false
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ isMounted: true });
+  }
+  render() {
+    const { name, lastName, imgSrc, balance } = this.props;
+    const { isMounted } = this.state;
+    return (
+      <CSSTransition in={isMounted} classNames="profileinfo" timeout={300}>
+        <ProfileInfoWrapper>
+          <img className="profile-picture" src={imgSrc} alt="profile" />
+          <div className="profile-details">
+            <span className="profile-details-name">
+              {name}
+              <span className="desktop"> {lastName}</span>
+            </span>
+            <span className="mobile">
+              <br />
+              Available balance
+              <div>£{balance}</div>
+            </span>
+            <span className="desktop">
+              <br />£{balance} Available
+            </span>
+          </div>
+        </ProfileInfoWrapper>
+      </CSSTransition>
+    );
+  }
+}
 
 ProfileInfo.propTypes = {
   name: PropTypes.string.isRequired,

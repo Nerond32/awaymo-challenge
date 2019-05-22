@@ -19,13 +19,11 @@ const NavItemWrapper = styled.div`
     position: relative;
     left: -200px;
     opacity: 0;
-    transform: scale(1.1);
   }
   &.navitem-enter-active {
     left: 0px;
     position: relative;
     opacity: 1;
-    transform: scale(1);
     transition: all 60ms;
     transition-delay: ${props => getDesktopOrder(props.name) * 60}ms;
   }

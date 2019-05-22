@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 import Header from './Header/Header';
 import Nav from './Nav/Nav';
 import Footer from './Footer/Footer';
@@ -27,18 +28,43 @@ const AppWrapper = styled.div`
   main {
     flex: 1;
   }
+  .hf-enter {
+    opacity: 0;
+  }
+  .hf-enter-active {
+    opacity: 1;
+    transition: all 500ms;
+  }
 `;
 
-const App = () => {
-  return (
-    <AppWrapper>
-      <Header />
-      <Nav />
-      <main />
-      <Footer />
-      <GlobalStyle />
-    </AppWrapper>
-  );
-};
+class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMounted: false
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ isMounted: true });
+  }
+
+  render() {
+    const { isMounted } = this.state;
+    return (
+      <AppWrapper>
+        <CSSTransition in={isMounted} classNames="hf" timeout={300}>
+          <Header />
+        </CSSTransition>
+        <Nav />
+        <main />
+        <CSSTransition in={isMounted} classNames="hf" timeout={300}>
+          <Footer />
+        </CSSTransition>
+        <GlobalStyle />
+      </AppWrapper>
+    );
+  }
+}
 
 export default App;
