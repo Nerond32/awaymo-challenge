@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getDesktopOrder, getMobileOrder } from '../navItemOrder';
@@ -13,10 +14,6 @@ const NavItemWrapper = styled.div`
     display: inline;
     margin-left: 0.5em;
   }
-  &:hover {
-    transform: scale(1.3);
-    transform: translate(0.3em, 0);
-  }
   &.navitem-enter {
     position: relative;
     left: -200px;
@@ -28,6 +25,12 @@ const NavItemWrapper = styled.div`
     opacity: 1;
     transition: all 60ms;
     transition-delay: ${props => getDesktopOrder(props.name) * 60}ms;
+  }
+  &.non-touch-device {
+    :hover {
+      transform: scale(1.3);
+      transform: translate(0.3em, 0);
+    }
   }
   @media screen and (max-width: 479px) {
     order: ${props => getMobileOrder(props.name)};
@@ -61,7 +64,11 @@ class NavItem extends React.PureComponent {
     const { name, nameAppend, icon, rotation, isDesktopExclusive } = this.props;
     const { isMounted } = this.state;
     return (
-      <CSSTransition in={isMounted} classNames="navitem" timeout={900}>
+      <CSSTransition
+        in={isMounted}
+        classNames={isMobile ? 'navitem' : 'non-touch-device navitem'}
+        timeout={900}
+      >
         <NavItemWrapper name={name} isDesktopExclusive={isDesktopExclusive}>
           {icon !== null && (
             <FontAwesomeIcon

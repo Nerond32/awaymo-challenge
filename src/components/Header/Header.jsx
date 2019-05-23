@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HeaderWrapper = styled.header`
@@ -20,7 +21,8 @@ const HeaderWrapper = styled.header`
     order: 10;
     transition: all 500ms;
   }
-  .header-exit-button:hover {
+
+  .non-touch-device:hover {
     font-size: 2em;
   }
   @media screen and (min-width: 480px) {
@@ -32,7 +34,14 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <img src="./awaymoFullWhite.svg" alt="Awaymo  avatar" />
-      <FontAwesomeIcon className="header-exit-button" icon="times" />
+      <FontAwesomeIcon
+        className={
+          isMobile
+            ? 'header-exit-button'
+            : 'header-exit-button non-touch-device'
+        }
+        icon="times"
+      />
     </HeaderWrapper>
   );
 };
