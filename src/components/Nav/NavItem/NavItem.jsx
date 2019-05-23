@@ -8,6 +8,8 @@ import { getDesktopOrder, getMobileOrder } from '../navItemOrder';
 const NavItemWrapper = styled.div`
   transition: transform 0.1s ease;
   .item-name {
+    color: inherit;
+    text-decoration: none;
     display: inline;
     margin-left: 0.5em;
   }
@@ -68,12 +70,21 @@ class NavItem extends React.PureComponent {
               transform={{ rotate: rotation }}
             />
           )}
-          <p className="item-name">
+          <a
+            className="item-name"
+            href="/"
+            onClick={e => e.preventDefault()}
+            tabIndex={
+              window.innerWidth > 479
+                ? getDesktopOrder(name) + 1
+                : getMobileOrder(name) + 1
+            }
+          >
             {name}
             {nameAppend !== null && (
               <span className="mobile-only"> {nameAppend}</span>
             )}
-          </p>
+          </a>
         </NavItemWrapper>
       </CSSTransition>
     );
