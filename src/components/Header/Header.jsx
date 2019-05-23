@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -30,20 +31,26 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-const Header = () => {
+const Header = ({ changeMenuStateCallback, isMenuOpened }) => {
   return (
     <HeaderWrapper>
       <img src="./awaymoFullWhite.svg" alt="Awaymo  avatar" />
       <FontAwesomeIcon
+        onClick={changeMenuStateCallback}
         className={
           isMobile
             ? 'header-exit-button'
             : 'header-exit-button non-touch-device'
         }
-        icon="times"
+        icon={isMenuOpened ? 'times' : 'angle-down'}
       />
     </HeaderWrapper>
   );
+};
+
+Header.propTypes = {
+  changeMenuStateCallback: PropTypes.func.isRequired,
+  isMenuOpened: PropTypes.bool.isRequired
 };
 
 export default Header;

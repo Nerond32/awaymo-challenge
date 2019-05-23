@@ -13,6 +13,16 @@ const ProfileInfoWrapper = styled.div`
     opacity: 1;
     transition: all 1000ms;
   }
+  &.profileinfo-exit {
+    opacity: 1;
+  }
+  &.profileinfo-exit-active {
+    opacity: 0;
+    transition: all 1000ms;
+  }
+  &.profileinfo-exit-done {
+    opacity: 0;
+  }
   .profile-picture {
     background-color: white;
     border-radius: 100%;
@@ -67,6 +77,16 @@ class ProfileInfo extends React.PureComponent {
   componentDidMount() {
     this.setState({ isMounted: true });
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.shouldRender && !this.props.shouldRender) {
+      this.setState({ isMounted: false });
+      setTimeout(() => this.setState({ shouldRender: false }), 900);
+    } else if (!prevProps.shouldRender && this.props.shouldRender) {
+      this.setState({ isMounted: true, shouldRender: true });
+    }
+  }
+
   render() {
     const { name, lastName, imgSrc, balance } = this.props;
     const { isMounted } = this.state;
@@ -98,7 +118,8 @@ ProfileInfo.propTypes = {
   name: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   imgSrc: PropTypes.string.isRequired,
-  balance: PropTypes.string.isRequired
+  balance: PropTypes.string.isRequired,
+  shouldRender: PropTypes.bool.isRequired
 };
 
 export default ProfileInfo;

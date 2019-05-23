@@ -38,14 +38,32 @@ const NavWrapper = styled.nav`
   }
 `;
 
-const Nav = () => {
-  const items = navItems.map((item, key) => <NavItem key={key} {...item} />);
-  return (
-    <NavWrapper>
-      <ProfileInfo {...profileData} />
-      {items}
-    </NavWrapper>
-  );
-};
+class Nav extends React.Component {
+  state = {
+    shouldRender: this.props.isMenuOpened,
+    isClosing: false
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isMenuOpened && !this.props.isMenuOpened) {
+      this.setState({ isClosing: true });
+      setTimeout(() => this.setState({ shouldRender: false }), 1000);
+    } else if (!prevProps.isMenuOpened && this.props.isMenuOpened) {
+      this.setState({ isClosing: false, shouldRender: true });
+    }
+  }
+
+  render() {
+    const items = navItems.map((item, key) => (
+      <NavItem key={key} {...item} shouldRender={!this.state.isClosing} />
+    ));
+    return this.state.shouldRender ? (
+      <NavWrapper>
+        <ProfileInfo {...profileData} shouldRender={!this.state.isClosing} />
+        {items}
+      </NavWrapper>
+    ) : null;
+  }
+}
 
 export default Nav;

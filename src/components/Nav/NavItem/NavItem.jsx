@@ -26,6 +26,21 @@ const NavItemWrapper = styled.div`
     transition: all 60ms;
     transition-delay: ${props => getDesktopOrder(props.name) * 60}ms;
   }
+  &.navitem-exit {
+    position: relative;
+    left: 0px;
+    opacity: 1;
+  }
+  &.navitem-exit-active {
+    left: -200px;
+    position: relative;
+    opacity: 0;
+    transition: all 60ms;
+    transition-delay: ${props => getDesktopOrder(props.name) * 60}ms;
+  }
+  &.navitem-exit-done {
+    opacity: 0;
+  }
   &.non-touch-device {
     :hover {
       transform: scale(1.3);
@@ -37,6 +52,9 @@ const NavItemWrapper = styled.div`
     display: ${props => (props.isDesktopExclusive ? 'none' : 'initial')};
     font-size: 1.4em;
     &.navitem-enter-active {
+      transition-delay: ${props => getMobileOrder(props.name) * 60}ms;
+    }
+    &.navitem-exit-active {
       transition-delay: ${props => getMobileOrder(props.name) * 60}ms;
     }
   }
@@ -58,6 +76,15 @@ class NavItem extends React.PureComponent {
 
   componentDidMount() {
     this.setState({ isMounted: true });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.shouldRender && !this.props.shouldRender) {
+      this.setState({ isMounted: false });
+      setTimeout(() => this.setState({ shouldRender: false }), 900);
+    } else if (!prevProps.shouldRender && this.props.shouldRender) {
+      this.setState({ isMounted: true, shouldRender: true });
+    }
   }
 
   render() {
@@ -108,6 +135,7 @@ NavItem.defaultProps = {
 NavItem.propTypes = {
   icon: PropTypes.string,
   isDesktopExclusive: PropTypes.bool,
+  shouldRender: PropTypes.bool.isRequired,
   rotation: PropTypes.number,
   name: PropTypes.string.isRequired,
   nameAppend: PropTypes.string

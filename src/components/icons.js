@@ -8,7 +8,8 @@ import {
   faCreditCard,
   faPlane,
   faUserCircle,
-  faTimes
+  faTimes,
+  faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 const addIconsToLib = () => {
@@ -21,7 +22,8 @@ const addIconsToLib = () => {
     faCreditCard,
     faPlane,
     faUserCircle,
-    faTimes
+    faTimes,
+    faAngleDown
   );
 };
 

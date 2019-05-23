@@ -18,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
   #root {
     height:100%;
   }
-  
 `;
 
 const AppWrapper = styled.div`
@@ -41,22 +40,32 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isMounted: false
+      isMounted: false,
+      isMenuOpened: true
     };
   }
+
+  changeMenuState = () => {
+    this.setState(prevState => {
+      return { isMenuOpened: !prevState.isMenuOpened };
+    });
+  };
 
   componentDidMount() {
     this.setState({ isMounted: true });
   }
 
   render() {
-    const { isMounted } = this.state;
+    const { isMounted, isMenuOpened } = this.state;
     return (
       <AppWrapper>
         <CSSTransition in={isMounted} classNames="hf" timeout={300}>
-          <Header />
+          <Header
+            changeMenuStateCallback={this.changeMenuState}
+            isMenuOpened={isMenuOpened}
+          />
         </CSSTransition>
-        <Nav />
+        <Nav isMenuOpened={isMenuOpened} />
         <main />
         <CSSTransition in={isMounted} classNames="hf" timeout={300}>
           <Footer />
