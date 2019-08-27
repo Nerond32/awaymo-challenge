@@ -6,6 +6,9 @@ import 'core-js/features/string';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import addIconsToLib from './utils/icons';
+
+addIconsToLib();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
