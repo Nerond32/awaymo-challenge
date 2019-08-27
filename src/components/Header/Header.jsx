@@ -7,7 +7,7 @@ import HeaderWrapper from './Header.styled';
 const Header = ({ changeMenuStateCallback, isMenuOpened }) => {
   return (
     <HeaderWrapper>
-      <img src="./awaymoFullWhite.svg" alt="Awaymo  avatar" />
+      <img src="./awaymoFullWhite.svg" alt="Awaymo avatar" />
       <FontAwesomeIcon
         onClick={changeMenuStateCallback}
         className={

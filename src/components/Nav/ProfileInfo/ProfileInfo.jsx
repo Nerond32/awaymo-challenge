@@ -9,7 +9,7 @@ const ProfileInfo = ({ name, lastName, imgSrc, balance, shouldRender }) => {
     setIsMounted(true);
   }, []);
   useEffect(() => {
-    setIsMounted(!isMounted);
+    setIsMounted(shouldRender);
   }, [shouldRender]);
   return (
     <CSSTransition in={isMounted} classNames="profileinfo" timeout={300}>

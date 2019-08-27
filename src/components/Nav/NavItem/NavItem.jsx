@@ -8,7 +8,7 @@ import NavItemWrapper from './NavItem.styled';
 
 const NavItem = ({
   name,
-  nameAppend,
+  mobileName,
   icon,
   rotation,
   isDesktopExclusive,
@@ -19,7 +19,7 @@ const NavItem = ({
     setIsMounted(true);
   }, []);
   useEffect(() => {
-    setIsMounted(!isMounted);
+    setIsMounted(shouldRender);
   }, [shouldRender]);
   return (
     <CSSTransition
@@ -45,10 +45,7 @@ const NavItem = ({
               : getMobileOrder(name) + 1
           }
         >
-          {name}
-          {nameAppend !== null && (
-            <span className="mobile-only"> {nameAppend}</span>
-          )}
+          {isMobile && mobileName ? mobileName : name}
         </a>
       </NavItemWrapper>
     </CSSTransition>

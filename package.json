@@ -1,23 +1,24 @@
 {
   "name": "awaymo-react-test",
+  "homepage": "https://awaymo-challenge.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.18",
-    "@fortawesome/free-solid-svg-icons": "^5.8.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "core-js": "^3.1.2",
+    "core-js": "^3.2.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "normalize.css": "^8.0.1",
-    "prettier": "^1.17.1",
-    "react": "^16.8.6",
-    "react-device-detect": "^1.6.2",
-    "react-dom": "^16.8.6",
+    "prettier": "^1.18.2",
+    "react": "^16.9.0",
+    "react-device-detect": "^1.7.5",
+    "react-dom": "^16.9.0",
     "react-scripts": "3.0.0",
-    "react-transition-group": "^4.0.1",
-    "styled-components": "^4.2.0"
+    "react-transition-group": "^4.2.2",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

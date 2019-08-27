@@ -6,11 +6,15 @@ import NavWrapper from './Nav.styled';
 
 const Nav = ({ isMenuOpened }) => {
   const [isClosing, setIsClosing] = useState(false);
-  const [shouldRender, setShouldRender] = useState(isMenuOpened);
+  const [shouldRender, setShouldRender] = useState(false);
   useEffect(() => {
     if (!isMenuOpened) {
       setIsClosing(true);
-      setTimeout(() => setShouldRender(false), 1000);
+      setTimeout(() => {
+        if (isClosing) {
+          setShouldRender(false);
+        }
+      }, 1000);
     } else {
       setIsClosing(false);
       setShouldRender(true);

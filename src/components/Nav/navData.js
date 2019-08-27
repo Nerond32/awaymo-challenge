@@ -14,7 +14,7 @@ export const navItems = [
   { name: 'Support', icon: 'compact-disc' },
   { name: 'Contact', icon: 'phone', rotation: 90 },
   { name: 'Log Out', icon: 'sign-out-alt' },
-  { name: 'About', icon: 'question-circle', nameAppend: 'Us' },
+  { name: 'About', mobileName: 'About us', icon: 'question-circle' },
   { name: 'Resume Application', isDesktopExclusive: true },
   { name: 'FAQ', icon: 'info-circle' }
 ];
