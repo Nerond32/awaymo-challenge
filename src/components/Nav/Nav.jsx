@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import NavItem from './NavItem/NavItem';
@@ -38,32 +38,27 @@ const NavWrapper = styled.nav`
   }
 `;
 
-class Nav extends React.Component {
-  state = {
-    shouldRender: this.props.isMenuOpened,
-    isClosing: false
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.isMenuOpened && !this.props.isMenuOpened) {
-      this.setState({ isClosing: true });
-      setTimeout(() => this.setState({ shouldRender: false }), 1000);
-    } else if (!prevProps.isMenuOpened && this.props.isMenuOpened) {
-      this.setState({ isClosing: false, shouldRender: true });
+const Nav = ({ isMenuOpened }) => {
+  const [isClosing, setIsClosing] = useState(false);
+  const [shouldRender, setShouldRender] = useState(isMenuOpened);
+  useEffect(() => {
+    if (!isMenuOpened) {
+      setIsClosing(true);
+      setTimeout(() => setShouldRender(false), 1000);
+    } else {
+      setIsClosing(false);
+      setShouldRender(true);
     }
-  }
+  }, [isMenuOpened]);
+  const items = navItems.map((item, key) => (
+    <NavItem key={key} {...item} shouldRender={!isClosing} />
+  ));
+  return shouldRender ? (
+    <NavWrapper>
+      <ProfileInfo {...profileData} shouldRender={!isClosing} />
+      {items}
+    </NavWrapper>
+  ) : null;
+};
 
-  render() {
-    const items = navItems.map((item, key) => (
-      <NavItem key={key} {...item} shouldRender={!this.state.isClosing} />
-    ));
-    return this.state.shouldRender ? (
-      <NavWrapper>
-        <ProfileInfo {...profileData} shouldRender={!this.state.isClosing} />
-        {items}
-      </NavWrapper>
-    ) : null;
-  }
-}
-
-export default Nav;
+export default memo(Nav);

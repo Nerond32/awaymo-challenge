@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
@@ -66,64 +66,54 @@ const NavItemWrapper = styled.div`
   }
 `;
 
-class NavItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMounted: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ isMounted: true });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.shouldRender && !this.props.shouldRender) {
-      this.setState({ isMounted: false });
-      setTimeout(() => this.setState({ shouldRender: false }), 900);
-    } else if (!prevProps.shouldRender && this.props.shouldRender) {
-      this.setState({ isMounted: true, shouldRender: true });
-    }
-  }
-
-  render() {
-    const { name, nameAppend, icon, rotation, isDesktopExclusive } = this.props;
-    const { isMounted } = this.state;
-    return (
-      <CSSTransition
-        in={isMounted}
-        classNames={isMobile ? 'navitem' : 'non-touch-device navitem'}
-        timeout={900}
-      >
-        <NavItemWrapper name={name} isDesktopExclusive={isDesktopExclusive}>
-          {icon !== null && (
-            <FontAwesomeIcon
-              className="mobile-only"
-              icon={icon}
-              transform={{ rotate: rotation }}
-            />
+const NavItem = ({
+  name,
+  nameAppend,
+  icon,
+  rotation,
+  isDesktopExclusive,
+  shouldRender
+}) => {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  useEffect(() => {
+    setIsMounted(!isMounted);
+  }, [shouldRender]);
+  return (
+    <CSSTransition
+      in={isMounted}
+      classNames={isMobile ? 'navitem' : 'non-touch-device navitem'}
+      timeout={900}
+    >
+      <NavItemWrapper name={name} isDesktopExclusive={isDesktopExclusive}>
+        {icon !== null && (
+          <FontAwesomeIcon
+            className="mobile-only"
+            icon={icon}
+            transform={{ rotate: rotation }}
+          />
+        )}
+        <a
+          className="item-name"
+          href="/"
+          onClick={e => e.preventDefault()}
+          tabIndex={
+            window.innerWidth > 479
+              ? getDesktopOrder(name) + 1
+              : getMobileOrder(name) + 1
+          }
+        >
+          {name}
+          {nameAppend !== null && (
+            <span className="mobile-only"> {nameAppend}</span>
           )}
-          <a
-            className="item-name"
-            href="/"
-            onClick={e => e.preventDefault()}
-            tabIndex={
-              window.innerWidth > 479
-                ? getDesktopOrder(name) + 1
-                : getMobileOrder(name) + 1
-            }
-          >
-            {name}
-            {nameAppend !== null && (
-              <span className="mobile-only"> {nameAppend}</span>
-            )}
-          </a>
-        </NavItemWrapper>
-      </CSSTransition>
-    );
-  }
-}
+        </a>
+      </NavItemWrapper>
+    </CSSTransition>
+  );
+};
 
 NavItem.defaultProps = {
   icon: null,
@@ -141,4 +131,4 @@ NavItem.propTypes = {
   nameAppend: PropTypes.string
 };
 
-export default NavItem;
+export default memo(NavItem);

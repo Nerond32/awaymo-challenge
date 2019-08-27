@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
@@ -66,53 +66,36 @@ const ProfileInfoWrapper = styled.div`
   }
 `;
 
-class ProfileInfo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMounted: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ isMounted: true });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.shouldRender && !this.props.shouldRender) {
-      this.setState({ isMounted: false });
-      setTimeout(() => this.setState({ shouldRender: false }), 900);
-    } else if (!prevProps.shouldRender && this.props.shouldRender) {
-      this.setState({ isMounted: true, shouldRender: true });
-    }
-  }
-
-  render() {
-    const { name, lastName, imgSrc, balance } = this.props;
-    const { isMounted } = this.state;
-    return (
-      <CSSTransition in={isMounted} classNames="profileinfo" timeout={300}>
-        <ProfileInfoWrapper>
-          <img className="profile-picture" src={imgSrc} alt="profile" />
-          <div className="profile-details">
-            <span className="profile-details-name">
-              {name}
-              <span className="desktop"> {lastName}</span>
-            </span>
-            <span className="mobile">
-              <br />
-              Available balance
-              <div>£{balance}</div>
-            </span>
-            <span className="desktop">
-              <br />£{balance} Available
-            </span>
-          </div>
-        </ProfileInfoWrapper>
-      </CSSTransition>
-    );
-  }
-}
+const ProfileInfo = ({ name, lastName, imgSrc, balance, shouldRender }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  useEffect(() => {
+    setIsMounted(!isMounted);
+  }, [shouldRender]);
+  return (
+    <CSSTransition in={isMounted} classNames="profileinfo" timeout={300}>
+      <ProfileInfoWrapper>
+        <img className="profile-picture" src={imgSrc} alt="profile" />
+        <div className="profile-details">
+          <span className="profile-details-name">
+            {name}
+            <span className="desktop"> {lastName}</span>
+          </span>
+          <span className="mobile">
+            <br />
+            Available balance
+            <div>£{balance}</div>
+          </span>
+          <span className="desktop">
+            <br />£{balance} Available
+          </span>
+        </div>
+      </ProfileInfoWrapper>
+    </CSSTransition>
+  );
+};
 
 ProfileInfo.propTypes = {
   name: PropTypes.string.isRequired,
@@ -122,4 +105,4 @@ ProfileInfo.propTypes = {
   shouldRender: PropTypes.bool.isRequired
 };
 
-export default ProfileInfo;
+export default memo(ProfileInfo);

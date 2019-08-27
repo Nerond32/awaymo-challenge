@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
@@ -53,4 +53,4 @@ Header.propTypes = {
   isMenuOpened: PropTypes.bool.isRequired
 };
 
-export default Header;
+export default memo(Header);

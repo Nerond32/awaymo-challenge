@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import Header from './Header/Header';
@@ -36,44 +36,30 @@ const AppWrapper = styled.div`
   }
 `;
 
-class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMounted: false,
-      isMenuOpened: true
-    };
-  }
-
-  changeMenuState = () => {
-    this.setState(prevState => {
-      return { isMenuOpened: !prevState.isMenuOpened };
-    });
+const App = () => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMenuOpened, setIsMenuOpened] = useState(true);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  const changeMenuState = () => {
+    setIsMenuOpened(!isMenuOpened);
   };
+  return (
+    <AppWrapper>
+      <CSSTransition in={isMounted} classNames="hf" timeout={300}>
+        <Header
+          changeMenuStateCallback={changeMenuState}
+          isMenuOpened={isMenuOpened}
+        />
+      </CSSTransition>
+      <Nav isMenuOpened={isMenuOpened} />
+      <CSSTransition in={isMounted} classNames="hf" timeout={300}>
+        <Footer />
+      </CSSTransition>
+      <GlobalStyle />
+    </AppWrapper>
+  );
+};
 
-  componentDidMount() {
-    this.setState({ isMounted: true });
-  }
-
-  render() {
-    const { isMounted, isMenuOpened } = this.state;
-    return (
-      <AppWrapper>
-        <CSSTransition in={isMounted} classNames="hf" timeout={300}>
-          <Header
-            changeMenuStateCallback={this.changeMenuState}
-            isMenuOpened={isMenuOpened}
-          />
-        </CSSTransition>
-        <Nav isMenuOpened={isMenuOpened} />
-        <main />
-        <CSSTransition in={isMounted} classNames="hf" timeout={300}>
-          <Footer />
-        </CSSTransition>
-        <GlobalStyle />
-      </AppWrapper>
-    );
-  }
-}
-
-export default App;
+export default memo(App);
